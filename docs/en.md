@@ -130,6 +130,27 @@ Number of data items per page.
 
 If you want to show all pages, just set it to `null`.
 
+### pageLink <em>string (default ``)</em>
+`pageLink` customizes the anchor href attribute in the pagination page buttons, for SEO purposes mostly.
+
+By default, they use `<a>{{INDEX}}</a>`. 
+
+By setting a string in `pageLink`, it becomes `<a href="{{pageLink}}">{{INDEX}}</a>`.
+
+If you use the special string `{{index}}` inside your `pageLink`, the link will be customized with the current index.
+
+Example:
+
+pageLink: `/mysite/products/?page={{index}}`
+
+will render:
+
+`<a href="/mysite/products?page=1">1</a>`
+
+`<a href="/mysite/products?page=2">2</a>`
+
+etc.
+
 ### callback <em>function(data, pagination)</em>
 Used to customize item's innerHTML, will be invoked on each paging.
 
