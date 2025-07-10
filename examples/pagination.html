@@ -41,6 +41,8 @@
     <div id="pagination-demo2"></div>
     <div class="data-container"></div>
     <div id="pagination-demo3"></div>
+    <div class="data-container"></div>
+    <div id="pagination-demo4"></div>
   </section>
 </div>
 
@@ -168,6 +170,52 @@ $(function() {
       }
     })
   })('demo3');
+
+  (function(name) {
+    var container = $('#pagination-' + name);
+    if (!container.length) return;
+    var sources = function () {
+      var result = [];
+
+      for (var i = 1; i < 196; i++) {
+        result.push(i);
+      }
+
+      return result;
+    }();
+
+    var options = {
+      dataSource: sources,
+      pageLink: '/mysite/products/?page={{index}}', //to show the page button href attribute
+      pageNumber: 5,    //to show how the next/prev links are calculated
+      callback: function (response, pagination) {
+        window.console && console.log(response, pagination);
+
+        var dataHtml = '<ul>';
+
+        $.each(response, function (index, item) {
+          dataHtml += '<li>' + item + '</li>';
+        });
+
+        dataHtml += '</ul>';
+
+        container.prev().html(dataHtml);
+      }
+    };
+
+    //$.pagination(container, options);
+
+    container.addHook('beforeInit', function () {
+      window.console && console.log('beforeInit...');
+    });
+    container.pagination(options);
+
+    container.addHook('beforePageOnClick', function () {
+      window.console && console.log('beforePageOnClick...');
+      //return false
+    });
+  })('demo4');
+  
 })
 </script>
 </body>
