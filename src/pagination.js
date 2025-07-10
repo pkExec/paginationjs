@@ -141,7 +141,18 @@
 
       getPageLinkTag: function(index) {
         var pageLink = attributes.pageLink;
-        return pageLink ? `<a href="${pageLink}">${index}</a>` : `<a>${index}</a>`;
+        let pageIndex = index;
+        let total = attributes.totalNumber;
+        let currentPage = attributes.pageNumber;
+        switch (index){
+            case attributes.prevText:
+                pageIndex = (currentPage>1)?currentPage-1:1;
+                break;
+            case attributes.nextText:
+                pageIndex= (currentPage<total)?currentPage+1:total;
+                break;
+        }
+        return pageLink ? `<a href="${pageLink.replace('{{index}}', pageIndex)}">${index}</a>` : `<a>${index}</a>`;
       },
 
       // Generate HTML for page numbers
